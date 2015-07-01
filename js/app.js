@@ -1043,7 +1043,8 @@ app.controller('checkoutCtrl',function($scope,$http,$stateParams,$ionicPopup,$io
     test.subtotal = Cart.getTotalPrice();
     test.order_type = Cart.getDeliveryType();
     test.order_datetime = Cart.getDeliveryTime();
-    test.service_type = Search.getServiceType();
+    // test.service_type = Search.getServiceType();
+    test.service_type = 2;
     if(test.service_type  == 2)
       test.address_id = Search.getDeliveryAddress();
 
