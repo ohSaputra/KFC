@@ -4,18 +4,18 @@
 <widget xmlns     = "http://www.w3.org/ns/widgets"
         xmlns:gap = "http://phonegap.com/ns/1.0"
 		xmlns:android = "http://schemas.android.com/apk/res/android"
-        id        = "com.satudelivery.PH"
+        id        = "com.satudelivery.KFC"
 		  versionCode = "1"
         version   = "0.1.1">
 
-    <name>Pizza Hut Take Away</name>
+    <name>KFC Delivery</name>
 
     <description>
-        Pizza Hut - Satu Delivery Application
+        KFC - Satu Delivery Application
     </description>
 
     <author href="http://satudelivery.com" email="cs@klik-eat.com">
-        Pizza Hut
+        KFC
     </author>
 
 	<gap:platform name="android" />
