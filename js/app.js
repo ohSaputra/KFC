@@ -363,15 +363,6 @@ app.controller('homeCtrl',function($scope,$location,$ionicActionSheet,$ionicSide
 	    $ionicLoading.hide();
 	};
 
-  $scope.show('Loading...');
-  $scope.areaJson = Search.getArea();
-  $scope.$watch('areaJson', function() {
-      console.log($scope.areaJson);
-      if($scope.areaJson != null ){
-        $scope.hide();
-      }
-  },true);
-
   $scope.showSheet = function(){
     $scope.openModal(1);
     Search.setType(1);
