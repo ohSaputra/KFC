@@ -1,0 +1,159 @@
+<ion-view>
+
+<ion-nav-bar class="navbar" align-title="center">
+    <ion-nav-back-button class="button-clear">
+		<i class="ion-arrow-left-b icon-header"> New Address</i> 		
+    </ion-nav-back-button>
+</ion-nav-bar>
+
+
+	<ion-content style="background-color:#eee;background-image: url(img/left_panel_bg.jpg) !important; background-repeat: repeat-y !important; font-size:12px !important;">
+		<div class="list list-inset">
+			<div class="item" ng-repeat="item in newAddress" ng-click="openModal(item.index)">
+				<div class="row" style="padding:0px;">
+					<div align="left" class="col table_border_progress" style="width: 5% !important; border:none !important; font-size:16px !important; color: #FFD700 !important;"> 
+						<i class="{{item.icon}}"></i>
+					</div>
+					<div align="left" class="col table_col_left" style="width: 70% !important;border: none !important; font-size:16px !important;">
+						{{item.text}}
+					</div>
+					<div align="right" class="col table_col_right" style="width: 25% !important;border:none !important; padding-right:16px; font-size:14px !important;">
+						<span style="float:right">
+							<i class="ion-ios-checkmark" ng-hide="item.checked"></i> <i class="ion-ios-checkmark" ng-show="item.checked" style="color:green;"></i>
+						</span> 
+					</div>
+				 </div>
+			</div>
+		<!--/div-->
+
+		<div class="padding">
+			<div class="button-bar">
+				<button class="button button_dark_on_yellow" ng-click="commitAddress()" ng-disabled="newAddress[0].checked == false || newAddress[1].checked == false || newAddress[2].checked == false">
+					Save Address
+				</button>
+			</div>
+		</div>
+	</ion-content>
+
+</ion-view>
+
+
+<script id="newaddress-template.html" type="text/ng-template">
+	<ion-modal-view>
+		<ion-header-bar class="bar">
+			<div class="buttons">
+				<button class="button" ng-click="closeModal()">Cancel</button>
+			</div>
+			<h1 class="title" ng-show="tab == 1">Your Location</h1>
+			<h1 class="title" ng-show="tab == 2">Directions</h1>
+			<h1 class="title" ng-show="tab == 3">Create New Address</h1>
+			<div class="buttons">
+				<button class="button" ng-click="saveAddress(addressInput)">Save</button>
+			</div>
+		</ion-header-bar>
+
+		<ion-content>
+			<div ng-show="tab == 1">
+				<div id="map" style="height:460px"></div>
+				<div class="padding" style="font-size:12px">
+						{{full_address}}
+				</div>
+			</div>
+
+			<div ng-show="tab == 2">
+				<div class="list">
+		                <label class="item item-input">
+		        	       <textarea ng-model="addressInput.patokan" style="height:100px" placeholder="Special Instructions"></textarea>
+		                </label>
+		        </div>
+			</div>
+
+			<div ng-if="tab==3">
+				<div class="list list-inset" ng-switch on="addr.address_type">
+					<label class="item item-input item-select">
+					    <div class="input-label">
+					      Tipe Alamat
+					    </div>
+						<select ng-model="addressInput.address_selection">
+							<option value="1">Office</option>					
+							<option value="2">Residence</option>		
+							<option value="3">Apartment</option>					
+							<option value="4">Hotel</option>	
+							<option value="5">Ruko/Rukan</option>						
+							<option value="6">Kost</option>						
+						</select>
+					</label>
+					<addrType ng-switch on="addressInput.address_selection">
+						<div ng-switch-when="1">
+							<label class="item item-input">
+							    <input type="text" placeholder="Nama Perusahaan" ng-model="addressInput.tower_division" >
+							</label>
+							<label class="item item-input">
+							    <input type="text" placeholder="Nama Gedung" ng-model="addressInput.address_name">
+							</label>
+							<label class="item item-input">
+							    <input type="text" placeholder="Lantai" ng-model="addressInput.floor">
+							</label>
+							<label class="item item-input">
+							    <input type="text" placeholder="Nomor" ng-model="addressInput.room_unit">
+							</label>
+						</div>
+						<div ng-switch-when="2">
+							<label class="item item-input">
+							    <input type="text" placeholder="Name Komplek" ng-model="addressInput.address_name">
+							</label>
+						</div>
+						<div ng-switch-when="3">						
+							<label class="item item-input">
+							    <input type="text" placeholder="Nama Apartment" ng-model="addressInput.address_name">
+							</label>
+							<label class="item item-input">
+							    <input type="text" placeholder="Tower" ng-model="addressInput.tower_division" >
+							</label>
+							<label class="item item-input">
+							    <input type="text" placeholder="Lantai" ng-model="addressInput.floor">
+							</label>
+							<label class="item item-input">
+							    <input type="text" placeholder="Nomor" ng-model="addressInput.room_unit">
+							</label>
+						</div>
+						<div ng-switch-when="4">						
+							<label class="item item-input">
+							    <input type="text" placeholder="Nama Hotel" ng-model="addressInput.address_name">
+							</label>
+							<label class="item item-input">
+							    <input type="text" placeholder="Lantai" ng-model="addressInput.floor">
+							</label>
+							<label class="item item-input">
+							    <input type="text" placeholder="Nomor" ng-model="addressInput.room_unit">
+							</label>
+						</div>
+						<div ng-switch-when="5">						
+							<label class="item item-input">
+							    <input type="text" placeholder="Nama Ruko/Rukan" ng-model="addressInput.address_name">
+							</label>
+							<label class="item item-input">
+							    <input type="text" placeholder="Lantai" ng-model="addressInput.floor">
+							</label>
+						</div>
+						<div ng-switch-when="6">						
+							<label class="item item-input">
+							    <input type="text" placeholder="Nama Kost" ng-model="addressInput.address_name">
+							</label>
+							<label class="item item-input">
+							    <input type="text" placeholder="Lantai" ng-model="addressInput.floor">
+							</label>
+							<label class="item item-input">
+							    <input type="text" placeholder="Kamar" ng-model="addressInput.room_unit">
+							</label>
+						</div>
+					</addrType>			
+					<div class="item item-input-inset">
+						<textarea ng-model="addressInput.address_content" placeholder="Full Address"></textarea>
+					</div>
+				</div>
+			</div>
+
+		</ion-content>
+	</ion-modal-view>  	
+</script>

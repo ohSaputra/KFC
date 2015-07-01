@@ -1,0 +1,70 @@
+<ion-view>
+
+<ion-nav-bar class="navbar" align-title="center">
+	<ion-nav-buttons side="left">
+		<button class="button-clear" ng-click="toggleLeft()">
+			<i class="ion-navicon-round icon-header" style="font-size:20px;vertical-align:60%"> Problem & Feedback </i>
+		</button>
+	</ion-nav-buttons>
+
+	<ion-nav-buttons side="right">
+		<button class="button-clear" ng-click="toHome()">
+			<i class="ion-home icon-header" style="font-size:20px"></i>
+		</button>
+		<button class="button-clear">
+			<i class="ion-star icon-header" style="font-size:20px"></i>
+		</button>
+	</ion-nav-buttons>
+</ion-nav-bar>
+
+<ion-content style="background-color:#eee;background-image: url(img/left_panel_bg.jpg) !important; background-repeat: repeat-y !important;">
+
+<div class="padding" style="text-align:center;margin-top:15px;color:white" ng-show="success_login">Thank You, your request has been submitted</div>
+
+<div style="margin:15px 10px 15px 10px;padding:15px 10px 15px 10px;text-align:center;font-size:16px;background-color: #3b2b1a;opacity: 0.8;border: 2px solid;border-color: white;border-radius: 10px;color:white;" >
+	Stuck with problems<br/> or got feedback about out services?<br/> Feel free to contact us:
+</div>
+
+<div class="list" style="background-color:white;margin:15px 10px 15px 10px;border-radius:3px;">
+	<form name="support_form" novalidate ng-show="logged_in">
+		<label class="item item-input item-floating-label" >
+	    	<span class="input-label" style="color:#666">Name</span>
+	    	<input type="text" placeholder="Name" ng-model="support.name"/>
+	  	</label>
+	  	<label class="item item-input item-floating-label">
+	    	<span class="input-label" style="color:#666;">Email</span>
+	    	<input type="text" placeholder="Email" ng-model="support.email">
+	  	</label>
+	  	<label class="item item-input item-select">
+		    <div class="input-label" style="color:#666">
+		      Category
+		    </div>
+		    <select ng-model="support.type" style="width:60%;margin-right:10px;">
+		      <option value="support">Support Request</option>
+		      <option value="feedback">General Feedback</option>
+		      <option value="inquiry">General Inquiry</option>
+		    </select>
+		</label>
+	  	<label class="item item-input item-floating-label">
+	    	<span class="input-label" style="color:#666">Message</span>
+	    	<textarea placeholder="Message" style="height:100px;width:95%" ng-model="support.message" required></textarea>
+	  	</label>
+
+	  	<div class="padding button-bar">
+	  		<button class="button button_dark_on_yellow" ng-click="submitSupport(support_form)" ng-disabled="support_form.$invalid">Submit</button>
+	  	</div>
+	</form>
+
+	<div ng-hide="logged_in">
+		<div class="padding" style="text-align:center;font-size:16px;margin:16px 0;color:#666" >
+			Please Login First </br>
+		</div>
+		<div class="padding button-bar">
+			<a href="#/login" class="button button-balanced">Login</a>
+		</div>
+	</div>
+</div>
+
+</ion-content>
+
+</ion-view>

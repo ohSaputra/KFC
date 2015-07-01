@@ -1,0 +1,80 @@
+ <script type="text/ng-template" id="myModalContent.html">
+ <ion-modal-view>
+ 	<form>
+        <ion-header-bar class="navbar">
+            <button class="button-clear" ng-click="closeModal()">
+                <i class="ion-arrow-left-b" style="font-size:20px;color:#3d3d3d;"> Menu Detail </i>
+            </button>
+        </ion-header-bar>
+
+        <ion-content style="background-color:#eee;background-image: url(img/left_panel_bg.jpg) !important; background-repeat: repeat-y !important;z-index:99;" overflow-scroll="true">
+            <div class="padding"><img class="full-image" ng-src="http://128.199.190.218/images/fatburger/menu{{menu.menu_image}}" style="width:100%;height:auto"/></div>
+            <div class="list">
+                <h3 class="padding font-white" style="text-align:left !important;margin-top:-10px;">{{menu.menu_name}}</h3>
+        	      <div class="padding font-white" style="margin-top:-20px;">{{ menu.menu_description}}</div>
+                <hr style="margin:0 10px 0 10px;"/>
+            </div>
+            <hr style="margin:0 10px 0 10px;">
+            <div ng-if="menu.size.length>0" class="list">
+                <label class="item  item-select select_size">
+                    <select ng-model="menu.size_id" name="size_id" class="size_input" required ng-options="sz.size_name for sz in menu.size"></select>
+                </label>
+            </div>
+            <hr ng-show="menu.size.length>0" style="margin:0 10px 0 10px;">
+            <div ng-if="menu.attr.length>0" class="list">
+                <label class="item item-input font-white"> Available Additions</label>
+                <ion-checkbox ng-repeat="att in menu.attr" name="attr_id" id="checkbox_{{$index}}" ng-model="att.selected" value="{{att.attribute_id}}" type="checkbox" class="checkbox-energized"/>
+                    <span style="font-size:14px" class="font-white">{{att.attribute_name}} {{att.attribute_price | currency : 'Rp ' : 0}}</span>
+                </ion-checkbox>
+            </div>
+            <div class="padding">
+              <button class="button button_dark_on_yellow" style="width:100%">Start Your Ordering Here</button>
+            </div>
+         </ion-content>
+    </form>
+</ion-modal-view>
+</script>
+
+<ion-view>
+
+<ion-nav-bar class="navbar" align-title="center">
+    <ion-nav-back-button class="button-clear">
+        <i class="ion-arrow-left-b icon-header"> Menu Details</i>
+    </ion-nav-back-button>
+
+    <ion-nav-buttons side="right">
+        <div style="white-space:nowrap">
+            <button class="button-clear" ng-click="toHome()">
+                <i class="ion-home icon-header" style="font-size:20px"></i>
+            </button>
+            <button class="button-clear" ng-click="toCart()">
+        			<i class="icon ion-ios-cart-outline icon-header" style="font-size:20px;color:black"></i>
+        		</button>
+        </div>
+    </ion-nav-buttons>
+</ion-nav-bar>
+
+<ion-content style="background-color:#eee;background-image: url(img/left_panel_bg.jpg) !important; background-repeat: repeat-y !important;background-size:100%" overflow-scroll="true">
+
+  <div class="bar-header">
+  	<ion-scroll direction="x" style="width:100%;overflow:scroll;white-space:nowrap;height:50px;line-height:50px">
+          <div class="nav-cat" ng-repeat="category in menuCategories" ng-class="{active:tab==category.category_id}">
+      		<a href="" data-toggle="tab" ng-click="loadMenu(category.category_id)">{{category.category_name}} </a>
+      	</div>
+  	</ion-scroll>
+  </div>
+
+  <div ng-repeat="category in menuCategories" ng-show="tab == category.category_id">
+  	<div class="list">
+  		<a ng-repeat="menu in menus" class="item item-thumbnail-left item-text-wrap item_bb" href ng-click="openModal(menu.menu_id)">
+  			<img ng-src="http://128.199.190.218/images/fatburger/menu{{menu.menu_image}}" alt="{{menu.menu_name}}" style="width:100px;"/>
+  			<h3 style="font-weight:bold">{{menu.menu_name}}</h3>
+  			<p>{{menu.menu_description}}</p>
+  		</a>
+  	</div>
+  </div>
+
+  <div style="height:100px;width:100%"></div>
+
+</ion-content>
+</ion-view>

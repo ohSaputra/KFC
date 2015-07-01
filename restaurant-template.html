@@ -1,0 +1,60 @@
+<div class="container-fluid">
+
+  <div style="background:url('img/brand_logo/brand_bg.jpg');background-size:100%;height:150px" >
+    <div class="find_loc" align="center" style="margin-top:0;background-color:rgba(0,0,0,0.5);height:100%;width:100%;color:white;text-align:center">
+        <fieldset style="width:80%">
+          <span ng-show="serviceType==1">Pick Up</span>
+          <span ng-show="serviceType==2">Delivery</span> From <br/>
+          KFC {{details}}
+        </fieldset>
+    </div>
+  </div>
+
+	<div class="row">
+		<div class="col button_yellow_on_dark" style="text-align: center;padding:10px 0 10px 0; border-radius:3px;">
+		    <span>
+		        <i class="ion-clock"></i> 11:00 - 20:30
+		    </span>
+		</div>
+	</div>
+
+	<div class="padding">
+		<hr style="width:100%;border:none;border-top:1px solid white"/>
+	</div>
+
+	<div class="row">
+		<div class="col">
+			<div class="resto_circle1"><div><i class="ion-cash"></i></div></div>
+			<div class="resto_circle_text" style="color:#282828">No Minimum Order</div>
+		</div>
+		<div class="col">
+			<div class="resto_circle2"><div><i class="ion-card"></i></div></div>
+			<div class="resto_circle_text" style="color:#282828">Cash Only Payment</div>
+		</div>
+		<div class="col" style="text-align:center;color:#999">
+			<div class="resto_circle3"><div><i class="ion-paper-airplane"></i></div></div>
+			<div class="resto_circle_text" style="color:#282828">Delivery Fee<br/>Rp. {{outletInfo.delivery_charge | currency : '' : 0 }}</div>
+		</div>
+	</div>
+
+	<div class="padding">
+		<hr style="width:100%;border:none;border-top:1px solid white"/>
+	</div>
+
+	<div class="padding" align="center">
+		<div class="row" style="border-radius:3px;background-color:white;">
+			<div class="col" style="margin-left:-5px;">
+				<span class="font-black font_oswald_normal_300 line_legend_black" style="width:95%">&nbsp;TODAY'S INFO&nbsp;</span><br/>
+				<span class="font-black">Fat Deal comes with fries and drink.<br/>
+				Classic Deal comes with baby skinny fries and drink.<br/><br/>
+				Drink choices:<br/>
+				Coke, Fanta, Sprite, Ice/Hot Tea, Ades Mineral Water<br/><br/>
+				Fries choices:<br/>
+				Fat Fries, Skinny Fries, Homemade Onion Rings (Only for Fat Deal)<br/></span>
+			</div>
+		</div>
+	</div>
+
+
+
+</div>

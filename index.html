@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+	<meta charset="utf-8"/>
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+	<link rel="stylesheet" href="lib/ionic/css/ionic.css">
+	<link rel="stylesheet" href="css/app.css">
+	<link rel="stylesheet" href="css/datetimepicker.css">
+	<script src="lib/ionic/js/ionic.bundle.min.js"></script>
+	<script src="lib/lodash.min.js"></script>
+	<script src="lib/moment.js"></script>
+	<script src="lib/datetimepicker.js"></script>
+  <script src="cordova.js"></script>
+	<script src="https://maps.googleapis.com/maps/api/js?region=ID&v=3&libraries=places,geometry&key=AIzaSyCRR1GL3wrmggmD3urfWjKQW3EQS4blbrk"></script>
+	<script src="js/app.js"></script>
+	<script src="js/filter.js"></script>
+	<script src="js/factory.js"></script>
+  <script src="js/gui.js"></script>
+
+	<title>FATBURGER</title>
+</head>
+
+<body ng-app="indexApp" >
+
+<ion-side-menus enable-menu-with-back-views="true">
+    <ion-side-menu-content >
+			<ion-nav-view animation="slide-left-right" ></ion-nav-view>
+    </ion-side-menu-content>
+    <ion-side-menu side="left" ng-controller="panelCtrl" >
+			<ion-content overflow-scroll="true">
+				<div class="sidecolor" >
+	        <div class="list" style="background-color:#490000;text-align:left;height:44px;box-sizing:border-box;">
+	            <div style="color:#fff;font-size:20px;vertical-align:60%;font-family: Oswald !important;font-style:normal;font-weight:400;padding-top:10px;padding-left:13px">KFC</div>
+	        </div>
+
+	    		<div class="list" id="panelList">
+	            <logged ng-hide="logged_in">
+	                <a class="item" href="#/login" menu-close onmouseover="icon_hover('sign')" onmouseout="icon_out('sign')">
+	                   <div id="sign" class="panel_icon"><i class="icon ion-person"></i></div> Sign In
+	                </a>
+	            </logged>
+							<a class="item" ng-href="#/storelist/" menu-close onmouseover="icon_hover('view_outlet')" onmouseout="icon_out('view_outlet')">
+	                 <div id="view_outlet" class="panel_icon" ><i class="icon ion-document-text"></i></div> KFC Store List
+	            </a>
+							<a class="item" ng-href="#/menu/" menu-close onmouseover="icon_hover('view_menu')" onmouseout="icon_out('view_menu')">
+	                 <div id="view_menu" class="panel_icon"><i class="icon ion-clipboard ph-icon"></i></div> View Menu
+	            </a>
+	            <a class="item" href="#/promotion/" menu-close onmouseover="icon_hover('promotion')" onmouseout="icon_out('promotion')">
+	                <div id="promotion" class="panel_icon"><i class="icon ion-star"></i></div> Promotions
+	            </a>
+	            <a class="item" href="#/feedback/" menu-close menu-close onmouseover="icon_hover('problems&feedback')" onmouseout="icon_out('problems&feedback')">
+	                <div id="problems&feedback" class="panel_icon"><i class="icon ion-help"></i></div> Problems & Feedback
+	            </a>
+	            <logged ng-show="logged_in">
+
+	                <a class="item" href="#/my-account" menu-close onmouseover="icon_hover('my_account')" onmouseout="icon_out('my_account')">
+	                   <div id="my_account" class="panel_icon"><i class="icon ion-person"></i></div> My Account
+	                </a>
+	                <a class="item" href="#/my-address" menu-close onmouseover="icon_hover('delivery_address')" onmouseout="icon_out('delivery_address')">
+	                    <div id="delivery_address" class="panel_icon"><i class="icon ion-map"></i></div> Delivery Address
+	                </a>
+	                <a class="item" href="#/history/" menu-close onmouseover="icon_hover('order_history')" onmouseout="icon_out('order_history')">
+	                    <div id="order_history" class="panel_icon"><i class="icon ion-clock"></i></div> Order History
+	                </a>
+	            </logged>
+	    		</div>
+
+	    		<div class="list" id="panelList2">
+	    			<a class="item" href="#/about-us" menu-close>
+	                About Us
+	            </a>
+	            <a class="item" href="#/how-to-order" menu-close>
+	                How to Order
+	            </a>
+	            <a class="item" href="#/faq/" menu-close>
+	                FAQ
+	            </a>
+	            <a class="item" href="#/tc/" menu-close>
+	                Terms and Conditions
+	            </a>
+	    		</div>
+
+	        <div class="button-bar padding" ng-show="logged_in">
+	            <button class="button log_out button_dark_on_yellow" ng-click="logout()" menu-close><i class="icon ion-log-out"></i>   Log Out</button>
+	        </div>
+					<div style="height:20px;width:100%;position:relative;<!-- background-image:url('img/left_panel_bg.jpg');background-size:100% auto; -->float:left;margin-top:-8px">
+					</div>
+				</div>
+			</ion-content>
+    </ion-side-menu>
+</ion-side-menus>
+
+</body>
+
+</html>

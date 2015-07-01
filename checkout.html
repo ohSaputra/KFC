@@ -1,0 +1,321 @@
+<ion-view>
+
+<ion-nav-bar class="navbar" align-title="center" style="padding-bottom:10px;">
+	<ion-nav-back-button class="button-clear">
+		<i class="ion-arrow-left-b icon-header"> Checkout</i>
+    </ion-nav-back-button>
+
+	<ion-nav-buttons side="right">
+		<button class="button-clear" ng-click="toHome()">
+			<i class="ion-home icon-header" style="font-size:20px"></i>
+		</button>
+	</ion-nav-buttons>
+</ion-nav-bar>
+
+<ion-content style="background-color:#eee;background-image: url(img/left_panel_bg.jpg) !important; background-repeat: repeat-y !important;" overflow-scroll="true">
+<br/>
+<div class="sum_steps">1</div><span class="font-white">Order Summary</span>
+<div class="row">
+	<div class="col table_border_progress"></div>
+	<div class="col table_header"> Order Amount </div>
+</div>
+<div class="row">
+	<div class="col table_border_progress"></div>
+	<div class="col table_col_left"> Order Amount </div>
+	<div class="col table_col_mid"> <span style="float:right">{{totalPrice | currency : "Rp " : 0}} </span></div>
+	<div class="col table_col_right"> </div>
+</div>
+<div class="row">
+	<div class="col table_border_progress"></div>
+	<div class="col table_col_left bg_odd border_total" > Discount Promo (-) </div>
+	<div class="col table_col_mid bg_odd border_total" ng-init="discount_promo=0"> <span style="float:right">{{discount_promo | currency : "Rp " : 0}}</span> </div>
+	<div class="col table_col_right bg_odd border_total">
+	</div>
+</div>
+<div class="row">
+	<div class="col table_border_progress"></div>
+	<div class="col table_col_left"> Sub Total </div>
+	<div class="col table_col_mid"> <span style="float:right">{{totalPrice - discount_promo | currency : "Rp " : 0}} </span></div>
+	<div class="col table_col_right"> </div>
+</div>
+<div class="row">
+	<div class="col table_border_progress"></div>
+	<div class="col table_col_left"> Tax & Service Charge </div>
+	<div class="col table_col_mid" ng-init="discount_promo=0"> <span style="float:right">{{tax_service_charge | currency : "Rp " : 0}}</span> </div>
+	<div class="col table_col_right">
+	</div>
+</div>
+<div class="row">
+	<div class="col table_border_progress"></div>
+	<div class="col table_col_left border_total"> Delivery Fee </div>
+	<div class="col table_col_mid border_total"> <span style="float:right">{{delivery_fee | currency : "Rp " : 0}}</span> </div>
+	<div class="col table_col_right border_total">
+	</div>
+</div>
+<div class="row">
+	<div class="col table_border_progress"></div>
+	<div class="col table_col_left bg_footer footer_left"> Total Order Amount </div>
+	<div class="col table_col_mid bg_footer footer_mid"> <span style="float:right;">{{totalPrice - discount_promo + tax_service_charge - cash_balance - points_redemption - promo_code + delivery_fee | currency : "Rp " : 0}} </span></div>
+	<div class="col table_col_right bg_footer footer_right"> </div>
+</div>
+
+
+
+<div class="sum_steps">2</div>
+	<span class="font-white" ng-show="serviceType==2">Delivery Instruction</span>
+	<span class="font-white" ng-show="serviceType==1">Pickup Instruction</span>
+<div class="row">
+	<div class="col table_border_progress"></div>
+	<div class="col table_header"> Please Write Below </div>
+</div>
+<div class="row">
+	<div class="col table_border_progress"></div>
+	<div class="col table_col table_footer"> <textarea ng-model="deliveryInstruction.data" style="width:100%;resize:none;height:70px;box-sizing:border-box;"></textarea> </div>
+</div>
+<div class="row">
+	<div class="col table_border_progress"></div>
+	<div class="col table_header bg_odd font-black"> Do you need cutlery? <br/> Are there any special requests regarding your order? <br/> Are you allergic to something? <br/><br/> Tell us what you need about your order, and we will convey it to the restaurant. </div>
+</div>
+
+
+
+<nav ng-show="serviceType==2">
+
+<div class="sum_steps">3</div><span class="font-white">Delivery Address</span>
+<div class="row">
+	<div class="col table_border_progress"></div>
+	<div class="col table_header"> Your Delivery Address </div>
+</div>
+
+<div class="row" ng-hide="deliveryAddress != 0">
+	<div class="col table_border_progress"></div>
+	<div class="col table_header bg_odd font-black">
+	<div style="text-align: center;">
+	    <span>
+	        <i class="ion-ios-information ion_on_table" style="color:red; font-size:24px;"></i>
+	    </span>
+	</div>
+	You are choosing to use an Unsaved Address. <br/> <br/> You need to completely fill in the detail and save the address before you can continue toplace your order in the system</div>
+</div>
+<div class="row">
+	<div class="col table_border_progress"></div>
+	<div class="col table_col" style="background-color:transparent">
+		<div ng-show="deliveryAddress != 0">
+			<div class="card" ng-switch on="addr.address_type">
+				<addrType ng-switch-when="1">
+					<div class="item item-divider">
+						Kantor
+					</div>
+					<div class="item item-text-wrap">
+						{{addr.address_name}} <br/>
+						{{addr.tower_division}} {{addr.floor}} <br/>
+					    {{addr.address_content}}
+						{{addr.room_unit}}
+					</div>
+				</addrType>
+				<addrType ng-switch-when="2">
+					<div class="item item-divider">
+						Rumah
+					</div>
+					<div class="item item-text-wrap">
+						{{addr.address_name}}
+					    {{addr.address_content}}
+					</div>
+				</addrType>
+				<addrType ng-switch-when="3">
+					<div class="item item-divider">
+						Apartment
+					</div>
+					<div class="item item-text-wrap">
+						{{addr.address_name}} <br/>
+						{{addr.tower_division}} {{addr.floor}} {{addr.room_unit}} <br/>
+					    {{addr.address_content}}
+					</div>
+				</addrType>
+				<addrType ng-switch-when="4">
+					<div class="item item-divider">
+						Hotel
+					</div>
+					<div class="item item-text-wrap">
+						{{addr.address_name}}
+					    {{addr.floor}} {{addr.room_unit}} <br/>
+					    {{addr.address_content}}
+					</div>
+				</addrType>
+				<addrType ng-switch-when="5">
+					<div class="item item-divider">
+						Ruko/Rukan
+					</div>
+					<div class="item item-text-wrap">
+						{{addr.address_name}}
+					    {{addr.floor}} {{addr.room_unit}} <br/>
+						{{addr.address_content}}
+					</div>
+				</addrType>
+				<addrType ng-switch-when="6">
+					<div class="item item-divider">
+						Kost
+					</div>
+					<div class="item item-text-wrap">
+						{{addr.address_name}}
+					    {{addr.floor}} {{addr.room_unit}} <br/>
+						{{addr.address_content}}
+					</div>
+				</addrType>
+			</div>
+		</div>
+
+		<div ng-show="deliveryAddress == 0">
+			<div class="list list-inset" ng-switch on="addr.address_type">
+				<label class="item item-input item-select">
+				    <div class="input-label">
+				      Tipe Alamat
+				    </div>
+					<select ng-model="addressInput.address_selection">
+						<option value="1">Office</option>
+						<option value="2">Residence</option>
+						<option value="3">Apartment</option>
+						<option value="4">Hotel</option>
+						<option value="5">Ruko/Rukan</option>
+						<option value="6">Kost</option>
+					</select>
+				</label>
+				<addrType ng-switch on="addressInput.address_selection">
+					<div ng-switch-when="1">
+						<label class="item item-input">
+						    <input type="text" placeholder="Nama Perusahaan" ng-model="addressInput.tower_division" >
+						</label>
+						<label class="item item-input">
+						    <input type="text" placeholder="Nama Gedung" ng-model="addressInput.address_name">
+						</label>
+						<label class="item item-input">
+						    <input type="text" placeholder="Lantai" ng-model="addressInput.floor">
+						</label>
+						<label class="item item-input">
+						    <input type="text" placeholder="Nomor" ng-model="addressInput.room_unit">
+						</label>
+					</div>
+					<div ng-switch-when="2">
+						<label class="item item-input">
+						    <input type="text" placeholder="Name Komplek" ng-model="addressInput.address_name">
+						</label>
+					</div>
+					<div ng-switch-when="3">
+						<label class="item item-input">
+						    <input type="text" placeholder="Nama Apartment" ng-model="addressInput.address_name">
+						</label>
+						<label class="item item-input">
+						    <input type="text" placeholder="Tower" ng-model="addressInput.tower_division" >
+						</label>
+						<label class="item item-input">
+						    <input type="text" placeholder="Lantai" ng-model="addressInput.floor">
+						</label>
+						<label class="item item-input">
+						    <input type="text" placeholder="Nomor" ng-model="addressInput.room_unit">
+						</label>
+					</div>
+					<div ng-switch-when="4">
+						<label class="item item-input">
+						    <input type="text" placeholder="Nama Hotel" ng-model="addressInput.address_name">
+						</label>
+						<label class="item item-input">
+						    <input type="text" placeholder="Lantai" ng-model="addressInput.floor">
+						</label>
+						<label class="item item-input">
+						    <input type="text" placeholder="Nomor" ng-model="addressInput.room_unit">
+						</label>
+					</div>
+					<div ng-switch-when="5">
+						<label class="item item-input">
+						    <input type="text" placeholder="Nama Ruko/Rukan" ng-model="addressInput.address_name">
+						</label>
+						<label class="item item-input">
+						    <input type="text" placeholder="Lantai" ng-model="addressInput.floor">
+						</label>
+					</div>
+					<div ng-switch-when="6">
+						<label class="item item-input">
+						    <input type="text" placeholder="Nama Kost" ng-model="addressInput.address_name">
+						</label>
+						<label class="item item-input">
+						    <input type="text" placeholder="Lantai" ng-model="addressInput.floor">
+						</label>
+						<label class="item item-input">
+						    <input type="text" placeholder="Kamar" ng-model="addressInput.room_unit">
+						</label>
+					</div>
+				</addrType>
+				<div class="item item-input-inset">
+					<textarea ng-model="addressInput.address_content" placeholder="Full Address"></textarea>
+				</div>
+				<div class="item item-input-inset">
+					<textarea ng-model="addressInput.patokan" placeholder="Directions"></textarea>
+				</div>
+				<div class="item item-input-inset">
+					<button class="button button-block button_yellow_on_dark" ng-click="saveAddress(addressInput)"> Complete & Save Address</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="sum_steps">4</div><span class="font-white">Payment Method</span>
+<div class="row">
+	<div class="col table_border_progress"></div>
+	<div class="col table_header"> Cash On Delivery </div>
+</div>
+<div class="row">
+	<div class="col table_border_progress"></div>
+	<div class="col table_col"> Please input the exact amount to pay. exact change is appreciated </div>
+</div>
+
+<div class="row">
+	<div class="col table_border_progress"></div>
+	<div class="col table_col table_footer">
+		<div class="item item-input">
+            <span class="input-label font-black"> Rp </span>
+            <input type="text" placeholder="0" style="flex: none; margin-left: -80px; border:1px solid #3d3d3d; padding: 0 0 0 10px; width: 84% !important;" ng-init="cod=0">
+        </div>
+	</div>
+</div>
+
+</nav>
+
+<nav ng-show="serviceType==1">
+
+<div class="sum_steps">3</div><span class="font-white">Pickup Location</span>
+<div class="row">
+	<div class="col table_border_progress"></div>
+	<div class="col table_header"> You can pick up your order at </div>
+</div>
+<div class="row">
+	<div class="col table_border_progress"></div>
+	<div class="col table_col table_footer">{{pickupLocation}} </div>
+</div>
+
+<div class="sum_steps">4</div><span class="font-white">Pickup Date & Time</span>
+<div class="row">
+	<div class="col table_border_progress"></div>
+	<div class="col table_header"> Your preferred pick up date and time </div>
+</div>
+<div class="row">
+	<div class="col table_border_progress"></div>
+	<div class="col table_col table_footer">
+			<span ng-if="order_type == 1">Immediate Order</span>
+			<span ng-if="order_type == 2">Future - {{order_datetime}} </span>
+	</div>
+</div>
+
+</nav>
+
+<div class="padding" >
+	<div class="button-bar"><button class="button button_dark_on_yellow" ng-click="placeOrder()">Place Order</button></div>
+</div>
+
+
+<div class="padding card" ng-show="searchType == 0">
+	Delivery Address is not set.
+</div>
+
+</ion-content>
+</ion-view>

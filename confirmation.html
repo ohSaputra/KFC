@@ -1,0 +1,37 @@
+<ion-nav-bar class="navbar" align-title="center">
+	<ion-nav-buttons side="left">
+		<button class="button-clear" ng-click="toggleLeft()">
+			<i class="ion-navicon-round icon-header" style="font-size:20px;vertical-align:60%"> Order Confirmation </i>
+		</button>
+	</ion-nav-buttons>
+
+	<ion-nav-buttons side="right">
+		<button class="button-clear" ng-click="toHome()">
+			<i class="ion-home icon-header" style="font-size:20px"></i>
+		</button>
+	</ion-nav-buttons>
+</ion-nav-bar>
+
+<ion-content style="background-color:#eee;background-image: url(img/left_panel_bg.jpg) !important; background-repeat: repeat-y !important;">
+
+<div style="text-align:center;font-size:18px;font-weight:bold;margin-top:70px;color:#545353;">Thank You for Your Order</div>
+
+<div class="card padding">
+<div style="color:#988100;font-weight:bold;font-size:16px">Your Order ID : {{order_id}}</div>
+<br/>
+<p>
+Your order detail will be available shortly at <span style="opacity:0.5">{{customer_email}}</span>. You can also check your order history via your account page.<br/><br/>Please prepare the necesity for this transasction beefore our delivery person arrived
+</p>
+</div>
+
+<div align="center">
+	<span class="font-white"> Have a nice meal </span><br/>
+	<button class="button button_dark_on_yellow" ng-click="toHome()">
+		Back to Home Page
+	</button>
+</div>
+
+
+
+</ion-content>
+</ion-view>

@@ -1,0 +1,35 @@
+<ion-view>
+
+<ion-nav-bar class="navbar" align-title="center">
+    <ion-nav-back-button class="button-clear">
+		<i class="ion-arrow-left-b icon-header"> Order KFC</i>
+    </ion-nav-back-button>
+
+	<ion-nav-buttons side="right">
+		<button class="button-clear" ng-click="toHome()">
+			<i class="ion-home icon-header" style="font-size:20px"></i>
+		</button>
+    <button class="button-clear" ng-click="toCart()">
+			<i class="icon ion-ios-cart-outline" style="font-size:20px;color:white"></i>
+		</button>
+	</ion-nav-buttons>
+</ion-nav-bar>
+
+<ion-content style="background-color:#eee;background-image: url(img/left_panel_bg.jpg) !important; background-repeat: repeat-y !important;background-size:100%" overflow-scroll="true">
+
+<restaurant></restaurant>
+
+<div class="cat_cont">
+  <div style="width:33%;float:left;box-sizing:border-box;padding:5px" ng-repeat="category in menuCategories">
+    <a class="cat" ng-href="#/order/{{outlet_id}}/{{brand_id}}/{{category.category_id}}">
+      <div class="cat_img">
+	       <img ng-src="http://128.199.190.218/images/pizzahut/Categories/{{category.category_image}}"/>
+      </div>
+		   <span>{{category.category_name}}</span>
+    </a>
+  </div>
+</div>
+
+
+</ion-content>
+</ion-view>

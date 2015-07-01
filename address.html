@@ -1,0 +1,181 @@
+<script id="editaddress-template.html" type="text/ng-template">
+	<ion-modal-view>
+		<form>
+	        <ion-header-bar style="background-color:yellow;">
+	            <button class="button-clear" ng-click="closeModal()">
+	                <i class="ion-arrow-left-b" style="font-size:20px;color:#3d3d3d;"> Menu Detail </i> 
+	            </button>
+	        </ion-header-bar>
+
+        	<ion-content style="background-color:#eee;background-image: url(img/left_panel_bg.jpg) !important; background-repeat: repeat-y !important;z-index:99;">
+    			<div class="list list-inset" ng-switch on="addr.address_type">
+					<label class="item item-input item-select">
+					    <div class="input-label">
+					      Tipe Alamat
+					    </div>
+						<select ng-model="addressInput.address_selection">
+							<option value="1">Office</option>					
+							<option value="2">Residence</option>		
+							<option value="3">Apartment</option>					
+							<option value="4">Hotel</option>	
+							<option value="5">Ruko/Rukan</option>						
+							<option value="6">Kost</option>						
+						</select>
+					</label>
+					<addrType ng-switch on="addressInput.address_selection">
+						<div ng-switch-when="1">
+							<label class="item item-input">
+							    <input type="text" placeholder="Nama Perusahaan" ng-model="addressInput.tower_division" >
+							</label>
+							<label class="item item-input">
+							    <input type="text" placeholder="Nama Gedung" ng-model="addressInput.address_name">
+							</label>
+							<label class="item item-input">
+							    <input type="text" placeholder="Lantai" ng-model="addressInput.floor">
+							</label>
+							<label class="item item-input">
+							    <input type="text" placeholder="Nomor" ng-model="addressInput.room_unit">
+							</label>
+						</div>
+						<div ng-switch-when="2">
+							<label class="item item-input">
+							    <input type="text" placeholder="Name Komplek" ng-model="addressInput.address_name">
+							</label>
+						</div>
+						<div ng-switch-when="3">						
+							<label class="item item-input">
+							    <input type="text" placeholder="Nama Apartment" ng-model="addressInput.address_name">
+							</label>
+							<label class="item item-input">
+							    <input type="text" placeholder="Tower" ng-model="addressInput.tower_division" >
+							</label>
+							<label class="item item-input">
+							    <input type="text" placeholder="Lantai" ng-model="addressInput.floor">
+							</label>
+							<label class="item item-input">
+							    <input type="text" placeholder="Nomor" ng-model="addressInput.room_unit">
+							</label>
+						</div>
+						<div ng-switch-when="4">						
+							<label class="item item-input">
+							    <input type="text" placeholder="Nama Hotel" ng-model="addressInput.address_name">
+							</label>
+							<label class="item item-input">
+							    <input type="text" placeholder="Lantai" ng-model="addressInput.floor">
+							</label>
+							<label class="item item-input">
+							    <input type="text" placeholder="Nomor" ng-model="addressInput.room_unit">
+							</label>
+						</div>
+						<div ng-switch-when="5">						
+							<label class="item item-input">
+						    	<input type="text" placeholder="Nama Ruko/Rukan" ng-model="addressInput.address_name">
+							</label>
+							<label class="item item-input">
+							    <input type="text" placeholder="Lantai" ng-model="addressInput.floor">
+							</label>
+						</div>
+						<div ng-switch-when="6">						
+							<label class="item item-input">
+							    <input type="text" placeholder="Nama Kost" ng-model="addressInput.address_name">
+							</label>
+							<label class="item item-input">
+							    <input type="text" placeholder="Lantai" ng-model="addressInput.floor">
+							</label>
+							<label class="item item-input">
+							    <input type="text" placeholder="Kamar" ng-model="addressInput.room_unit">
+							</label>
+						</div>
+					</addrType>			
+					<div class="item item-input-inset">
+						<textarea ng-model="addressInput.address_content" placeholder="Full Address"></textarea>
+					</div>
+					<div class="item item-input-inset">
+						<textarea ng-model="addressInput.patokan" placeholder="Directions"></textarea>
+					</div>
+					<div class="item item-input-inset">
+						<button class="button button-block button_yellow_on_dark" ng-click="saveAddress(addressInput)"> Save Address
+						</button>
+					</div>
+				</div>        
+         	</ion-content>
+    	</form>
+  	</ion-modal-view>  	
+</script>
+
+
+<ion-view>
+
+<ion-nav-bar class="navbar" align-title="center">
+	<ion-nav-buttons side="left">
+		<button class="button-clear" ng-click="toggleLeft()">
+			<i class="ion-navicon-round icon-header" style="font-size:20px;vertical-align:60%"> Delivery Address </i>
+		</button>
+	</ion-nav-buttons>
+	
+	<ion-nav-buttons side="right">
+		<a class="button button-clear" href="#/new-address" style="color:#000;font-size:16px;text-decoration:none;">
+			New
+		</a>
+    </ion-nav-buttons>
+</ion-nav-bar>
+
+<ion-content style="background-color:#eee;background-image: url(img/left_panel_bg.jpg) !important; background-repeat: repeat-y !important;">
+
+
+<ion-list class="padding">
+	<ion-item class="item item_bb padding" ng-repeat="item in addresses" ng-switch on="item.address_type">
+		<addrType ng-switch-when="1">
+			<h2>Kantor</h2>
+			<p>	{{item.address_name}} <br/>
+				{{item.tower_division}} {{item.floor}} <br/>
+			    {{item.address_content}}
+				{{item.room_unit}}							
+			</p>	
+		</addrType>
+		<addrType ng-switch-when="2">
+			<h2>Rumah</h2>
+			<p>	{{item.address_name}}
+			    {{item.address_content}}						
+			</p>	
+		</addrType>
+		<addrType ng-switch-when="3">
+			<h2>Apartment</h2>
+			<p>	{{item.address_name}} <br/>
+				{{item.tower_division}} {{item.floor}} {{item.room_unit}} <br/>
+			    {{item.address_content}}															
+			</p>	
+		</addrType>
+		<addrType ng-switch-when="4">
+			<h2>Hotel</h2>
+			<p>	{{item.address_name}}
+			    {{item.floor}} {{item.room_unit}} <br/>
+			    {{item.address_content}}								
+			</p>	
+		</addrType>
+		<addrType ng-switch-when="5">
+			<h2>Ruko/Rukan</h2>
+			<p> {{item.address_name}}
+			    {{item.floor}} {{item.room_unit}} <br/>
+				{{item.address_content}}					
+			</p>	
+		</addrType>
+		<addrType ng-switch-when="6">
+			<h2>Kost</h2>
+			<p>	{{item.address_name}}
+			    {{item.floor}} {{item.room_unit}} <br/>
+				{{item.address_content}}								
+			</p>	
+		</addrType>
+		<!--ion-option-button class="button" ng-click="openModal($index)" style="padding:0 0 0 20px;padding-top:-2px;">
+			<i class="ion-compose"></i>
+	    </ion-option-button>
+	    <ion-option-button class="button" ng-click="deleteItem($index)" style="padding:0 0 0 20px;padding-top:-2px;">	    	
+	    	<i class="ion-close-round"></i>
+	    </ion-option-button-->
+	</ion-item>
+</ion-list> 
+
+
+</ion-content>
+</ion-view>

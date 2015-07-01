@@ -1,0 +1,89 @@
+<ion-view>
+
+<ion-nav-bar class="navbar" align-title="center">
+  <ion-nav-buttons side="left">
+		<button class="button-clear" ng-click="toggleLeft()">
+			<i class="ion-navicon-round icon-header" style="font-size:20px;vertical-align:40%"> Menu</i>
+		</button>
+	</ion-nav-buttons>
+
+	<ion-nav-buttons side="right">
+		<button class="button-clear" ng-click="toHome()">
+			<i class="ion-home icon-header" style="font-size:20px"></i>
+		</button>
+		<button class="button-clear" ng-click="toCart()">
+			<i class="icon ion-ios-cart-outline icon-header" style="font-size:20px"></i>
+		</button>
+	</ion-nav-buttons>
+</ion-nav-bar>
+
+<ion-content style="background-color:#eee;background-image: url(img/left_panel_bg.jpg) !important; background-repeat: repeat-y !important;background-size:100%" overflow-scroll="true">
+
+  <div style="background:url('img/brand_logo/brand_bg.jpg');background-size:100%;height:150px" >
+    <div style="background-color:rgba(0,0,0,0.5);height:100%;width:100%">
+      <div class="find_loc" style="height:150px;margin-top:0px">
+        <img src="img/brand_logo/logo.png" style="height:100%;width:auto"/>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+		<div class="col button_yellow_on_dark" style="text-align: center;padding:10px 0 10px 0; border-radius:3px;">
+		    <span style="font-size:16px">
+		        <i class="ion-clock"></i> 11:00 - 20:30
+		    </span>
+		</div>
+	</div>
+
+	<div class="padding">
+		<hr style="width:100%;border:none;border-top:1px solid white"/>
+	</div>
+
+  <div class="row padding">
+    <div class="col">
+      <div class="resto_circle1"><div><i class="ion-cash"></i></div></div>
+      <div class="resto_circle_text font-white">No Minimum Order</div>
+    </div>
+    <div class="col">
+      <div class="resto_circle2"><div><i class="ion-card"></i></div></div>
+      <div class="resto_circle_text font-white">Cash Only Payment</div>
+    </div>
+    <div class="col" style="text-align:center;color:#999">
+      <div class="resto_circle3"><div><i class="ion-paper-airplane"></i></div></div>
+      <div class="resto_circle_text font-white">Delivery Fee<br/>Rp. {{outletInfo.delivery_charge | currency : '' : 0 }}</div>
+    </div>
+  </div>
+
+  <div class="padding">
+    <hr style="width:100%;border:none;border-top:1px solid white"/>
+  </div>
+
+  <div class="padding" align="center">
+    <div class="row" style="border-radius:3px;background-color:white;">
+      <div class="col" style="margin-left:-5px;">
+        <span class="font-black font_oswald_normal_300 line_legend_black" style="width:95%">&nbsp;TODAY'S INFO&nbsp;</span><br/>
+        <span class="font-black">Fat Deal comes with fries and drink.<br/>
+        Classic Deal comes with baby skinny fries and drink.<br/><br/>
+        Drink choices:<br/>
+        Coke, Fanta, Sprite, Ice/Hot Tea, Ades Mineral Water<br/><br/>
+        Fries choices:<br/>
+        Fat Fries, Skinny Fries, Homemade Onion Rings (Only for Fat Deal)<br/></span>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="cat_cont">
+    <div style="width:33%;float:left;box-sizing:border-box;padding:5px" ng-repeat="category in menuCategories">
+      <a class="cat" ng-href="#/menu-details/{{category.category_id}}">
+        <div class="cat_img">
+  	       <img ng-src="http://128.199.190.218/images/fatburger/categories/{{category.category_image}}"/>
+        </div>
+  		   <span>{{category.category_name}}</span>
+      </a>
+    </div>
+  </div>
+
+
+</ion-content>
+</ion-view>

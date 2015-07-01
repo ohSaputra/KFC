@@ -1,0 +1,49 @@
+<ion-view>
+
+<ion-nav-bar class="navbar" align-title="center">
+	<ion-nav-back-button class="button-clear">
+		<i class="ion-arrow-left-b icon-header"> Promotion
+			<span ng-show="section=='A'"> A </span>
+			<span ng-show="section=='B'"> B </span></i>
+    </ion-nav-back-button>
+
+	<ion-nav-buttons side="right">
+		<button class="button-clear" ng-click="toHome()">
+			<i class="ion-home icon-header" style="font-size:20px"></i>
+		</button>
+		<button class="button-clear">
+			<i class="ion-star icon-header" style="font-size:20px"></i>
+		</button>
+	</ion-nav-buttons>
+</ion-nav-bar>
+
+<ion-content style="background-color:#eee;background-image: url(img/left_panel_bg.jpg) !important; background-repeat: repeat-y !important;">
+
+
+<div class="card" align="center" ng-show="section=='A'">
+
+		<div class="row" style="border-radius:3px;background-color:white;">
+			<div class="col">
+				<img src="img/brand_logo/5-food-resto.jpg" style="width:100%;"/>
+				<br/>
+			lorem ipsum
+			</div>
+		</div>
+
+</div>
+
+<div class="card" align="center" ng-show="section=='B'">
+
+		<div class="row" style="border-radius:3px;background-color:white;">
+			<div class="col">
+				<img src="img/brand_logo/1-logo-square.png" style="width:100%;"/>
+				<br/>
+			lorem ipsum
+			</div>
+		</div>
+
+</div>
+
+
+</ion-content>
+</ion-view>

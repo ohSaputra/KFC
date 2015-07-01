@@ -1,0 +1,47 @@
+<ion-view>
+
+<ion-nav-bar class="navbar" align-title="center">
+  <ion-nav-buttons side="left">
+    <button class="button-clear" ng-click="toggleLeft()">
+      <i class="ion-navicon-round icon-header" style="font-size:20px;vertical-align:60%"> How To Order </i>
+    </button>
+  </ion-nav-buttons>
+
+    <ion-nav-buttons side="right">
+        <button class="button-clear" ng-click="toHome()">
+            <i class="ion-home icon-header" style="font-size:20px"></i>
+        </button>
+        <button class="button-clear" ng-click="toCart()">
+            <i class="ion-ios-cart-outline icon-header" style="font-size:20px"></i>
+        </button>
+    </ion-nav-buttons>
+</ion-nav-bar>
+
+<ion-content scrollbar-x="false" direction="x" style="background-image: url(img/howtoorder/bg.jpg) !important; background-repeat: repeat-y !important;">
+
+
+<ion-slide-box on-slide-changed="slideHasChanged($index)">
+  <ion-slide style="text-align:center">
+    <img src="img/howtoorder/1.jpg" style="width:100%"/>
+  </ion-slide>
+  <ion-slide style="text-align:center">
+    <img src="img/howtoorder/2.jpg" style="width:100%;"/>
+  </ion-slide>
+  <ion-slide style="text-align:center">
+    <img src="img/howtoorder/3.jpg" style="width:100%;"/>
+  </ion-slide>
+  <ion-slide style="text-align:center">
+    <img src="img/howtoorder/4.jpg" style="width:100%;"/>
+  </ion-slide>
+  <ion-slide style="text-align:center">
+    <img src="img/howtoorder/5.jpg" style="width:100%;"/>
+  </ion-slide>
+  <ion-slide style="text-align:center">
+    <img src="img/howtoorder/6.jpg" style="width:100%;"/>
+  </ion-slide>
+</ion-slide-box>
+
+</ion-content>
+
+
+</ion-view>

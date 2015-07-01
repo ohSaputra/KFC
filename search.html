@@ -1,0 +1,38 @@
+<ion-view>
+
+<ion-nav-bar class="navbar" align-title="center">
+    <ion-nav-back-button class="button-clear">
+		<i class="ion-arrow-left-b icon-header"> Restaurant List</i> 		
+    </ion-nav-back-button>
+	
+	<ion-nav-buttons side="right">
+		<button class="button-clear" ng-click="toHome()">
+			<i class="ion-home icon-header" style="font-size:20px"></i>
+		</button>
+		<button class="button-clear">
+			<i class="ion-star icon-header" style="font-size:20px"></i>
+		</button>
+	</ion-nav-buttons>
+</ion-nav-bar>
+
+<ion-content style="background-color:#eee;background-image: url(img/left_panel_bg.jpg) !important; background-repeat: repeat-y !important;">
+
+
+<div class="item card resto_list" ng-repeat="outlet in outlets">
+    <a ng-href="#/restaurant/{{outlet.outlet_id}}/{{outlet.brand_id}}">
+    	<div style="width:100%;height:100px;background-color:white;background-repeat:no-repeat;background-size:cover" ng-style="{'background-image': 'url(img/brand_logo/{{outlet.brand_id}}-food-search.jpg)'}">
+    		<img ng-src="img/brand_logo/{{outlet.brand_id}}-logo.png" style="height:50px;margin-left:10px;margin-top:10px"/>
+		</div>
+		<div style="text-align:center;margin:10px 0">
+			<h2>{{outlet.outlet_name | outletname}}</h2>
+			<p>@ {{outlet.outlet_name | outletname:1}}<br/> {{outlet.food_permit | foodpermit}}</p>
+		</div>
+		<div style="text-align:center;background-color:#dbdbdb;color:#999;padding:5px 0">	
+			<i class="fa fa-clock-o"></i> 11:00 - 20:30
+		</div>
+	</a>
+</div>		  
+
+
+</ion-content>
+</ion-view>

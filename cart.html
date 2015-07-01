@@ -1,0 +1,216 @@
+<script id="edit-order-template.html" type="text/ng-template">
+	<ion-modal-view>
+		<form>
+        <ion-header-bar style="background-color:yellow;">
+            <button class="button-clear" ng-click="closeModal(2)">
+                <i class="ion-arrow-left-b" style="font-size:20px;color:#3d3d3d;"> Menu Detail </i>
+            </button>
+        </ion-header-bar>
+
+        <ion-content style="background-color:#eee;background-image: url(img/left_panel_bg.jpg) !important; background-repeat: repeat-y !important;z-index:99;" overflow-scroll="true">
+            <div class="padding"><img class="full-image" ng-src="http://128.199.190.218/images/fatburger/menu{{menu.menu_image}}" style="width:100%;height:auto"/></div>
+            <div class="list">
+                <h3 class="padding font-white" style="text-align:left !important;margin-top:-10px;">{{menu.menu_name}}</h3>
+        	    <div class="padding font-white" style="margin-top:-20px;">{{ menu.menu_description}}</div>
+                <hr style="margin:0 10px 0 10px;">
+                <div class="item item-input padding" style="width:100%;background-color:transparent;border:0">
+                    <span class="input-label font-white">Quantity : </span>
+                    <input type="text" size=5 name="input" readonly ng-model="menu.qty" placeholder="Qty" value="{{menu.qty}}" style="background-color:white !important; margin:0 10px 0 0 !important;text-align: center;padding-right: 0px !important;"/>
+                    <span class="input-label font-white" style="margin-right: 50px;"> Item(s) </span>
+                    <button class="button-clear" style="height: 30px; width: 47px;" ng-click="menu.qty = menu.qty+1">
+                        <img src="img/plus_button.png" style="height:30px !important;">
+                    </button>
+                    <button class="button-clear" style="height: 30px; width: 47px;" ng-click="menu.qty = menu.qty-1">
+                        <img src="img/minus_button.png" style="height:30px !important;">
+                    </button>
+                </div>
+                <label class="item item-input padding" style="background-color:transparent;border:0">
+        	       <textarea ng-model="menu.instructions" placeholder="Special Instructions" style="padding:10px 10px 10px 10px;"></textarea>
+                </label>
+            </div>
+
+						<hr style="margin:0 10px 0 10px;" ng-if="menu.attr.length>0 && menu.size.length>0">
+
+            <div ng-if="menu.size.length>0" class="list">
+                <label class="item  item-select select_size">
+                    <select ng-model="menu.size_id" name="size_id" class="size_input" required ng-options="sz.size_name for sz in menu.size"></select>
+                </label>
+            </div>
+
+            <div ng-if="menu.attr.length>0" class="list">
+                <label class="item item-input font-white"> Available Additions</label>
+                <ion-checkbox ng-repeat="att in menu.attr" name="attr_id" id="checkbox_{{$index}}" ng-model="att.selected" value="{{att.attribute_id}}" type="checkbox" class="energized"/>
+                    <span style="font-size:14px" class="font-white">{{att.attribute_name}} {{att.attribute_price | currency : 'Rp ' : 0}}</span>
+                </ion-checkbox>
+            </div>
+
+        		<hr style="margin:0 10px 0 10px;">
+
+            <div class="button-bar padding">
+                <button class="button button-assertive" style="color:#3d3d3d;border-color: yellow;background-color:yellow;font-size:12px;font-weight:bold;padding:0 20px 0 20px;" ng-click="updateToCart(menu, indexItem)">
+                    Update Order
+                </button>
+            </div>
+         </ion-content>
+    </form>
+  </ion-modal-view>
+</script>
+
+<script id="datetime-template.html" type="text/ng-template">
+	<ion-modal-view>
+		<ion-header-bar style="background-color:#3d3d3d;">
+			<h1 class="title" style="color:yellow">Please Select Date and Time</h1>
+		</ion-header-bar>
+    <ion-content overflow-scroll="true">
+			<div class="padding" style="text-align:center;background-color:yellow;margin-top:10px;padding:10px 0;color:#3d3d3d">
+				Your Selected Time:<br/>
+				<strong>{{data.datetime | date : 'yyyy-MM-dd HH:mm:ss'}}</strong>
+			</div>
+			<datetimepicker data-ng-model="data.datetime" min-date="minDate" show-weeks="true" data-datetimepicker-config="{ minuteStep: 30 }"></datetimepicker>
+			<div class="button-bar padding" style="margin-top:20px">
+				<button style="color:#3d3d3d;border-color: #3d3d3d;background-color:yellow;font-size:12px;font-weight:bold;padding:0 20px 0 20px;"ng-click="closeModal(1)" class="button button-calm">Cancel</button>
+				<button style="color:#3d3d3d;border-color: #3d3d3d;background-color:yellow;font-size:12px;font-weight:bold;padding:0 20px 0 20px;"ng-click="saveModal(1)" class="button button-balanced">Checkout</button>
+			</div>
+    </ion-content>
+  </ion-modal-view>
+</script>
+
+<ion-view>
+
+<ion-nav-bar class="navbar" align-title="center">
+    <ion-nav-back-button class="button-clear">
+		<i class="ion-arrow-left-b icon-header"> Order Summary</i>
+    </ion-nav-back-button>
+
+	<ion-nav-buttons side="right">
+		<button class="button-clear" ng-click="toHome()">
+			<i class="ion-home icon-header" style="font-size:20px"></i>
+		</button>
+	</ion-nav-buttons>
+</ion-nav-bar>
+
+<ion-content style="background-color:#eee;background-image: url(img/left_panel_bg.jpg) !important; background-repeat: repeat-y !important;" overflow-scroll="true">
+
+<div class="card" align="center" style="color:#444;">
+		<div class="row" style="font-size:11px;background-color:#eee">
+			<div class="col col-33" style="border-right:1px solid #bdbdbd">
+				<strong style="font-size:14px">{{totalItems}}</strong><br/>
+				items in your order
+			</div>
+			<div class="col">
+				<strong style="font-size:14px">{{grandtotal | currency : 'Rp ' : 0}}</strong><br/>
+				total order amount incl. additional fees
+			</div>
+		</div>
+</div>
+<div align="center" class="row" style="font-size:11px;background-color:#3d3d3d;color:white;">
+	<div class="col">
+		<i class="ion-arrow-left-c"></i> &nbsp; swipe to the left to edit your order
+	</div>
+</div>
+<ion-list>
+	<ion-item ng-repeat="item in items" class="a" style="font-size:12px;font-weight:bold;border-top: 1px #bdbdbd solid;padding:0 !important">
+		<div class="row" style="margin-top:-16px;margin-left:-10px;width:100%">
+			<div align="left" class="col table_border_progress" style="width: 5% !important; border:none !important;background-color:transparent;">
+				{{item.qty}}x
+			</div>
+			<div align="left" class="col table_col_left item-text-wrap" style="width: 75% !important;border-right: 1px #bdbdbd solid;">
+				{{item.menu_name}} <span ng-show="item.size_id">({{item.size_id.size_name}})</span>
+			</div>
+			<div align="right" class="col table_col_right" style="width: 20% !important;border:none !important; padding-right:0px;">
+				<span style="float:right" ng-if="!item.size_id">{{item.menu_price * item.qty | currency : 'Rp ' : 0}}</span>
+				<span style="float:right" ng-if="!item.size_attribute_id[item.size_index].price">{{item.size_id.size_price * item.qty | currency : 'Rp ' : 0}}</span>
+                <span style="float:right" ng-if="item.size_attribute_id[item.size_index].price">{{item.size_attribute_id[item.size_index].price * item.qty | currency : 'Rp ' : 0}}</span>
+			</div>
+		</div>
+
+		<div class="row" style="margin-left:-21px;width:150%;margin-bottom:-21px">
+			<div class="col" style="font-weight:normal !important; background-color:#E0E0E0;">
+				+ Addition:
+				<div ng-repeat = "att in item.attr" style="font-style:italic;font-size:12px">
+					{{att.attribute_name}} {{ item.qty*att.attribute_price | currency : ''}}
+				</div>
+				+ Instruction: {{item.instructions}}
+			</div>
+		</div>
+
+		<ion-option-button class="button" ng-click="openModal(2,$index)" style="padding-right:20px;padding-top:-2px;">
+	     	<i class="ion-compose"></i>
+    </ion-option-button>
+    <ion-option-button class="button" ng-click="deleteItem($index)" style="padding-right:20px;padding-top:-2px;">
+	    	<i class="ion-close-round"></i>
+    </ion-option-button>
+	</ion-item>
+
+	<ion-item style="padding:0;font-size:12px;background-color:white;font-weight:bold;">
+		<div class="item-content">
+			<div class="row">
+				<div align="left" class="col table_border_progress" style="width: 5% !important; border:none !important;">
+					&nbsp;
+				</div>
+				<div align="left" class="col table_col_left" style="width: 65% !important; border-left:none; border-right: 2px #bdbdbd solid;font-size:bold;margin-left:-1px;margin-right:-1px;">
+					Tax & Service Charge
+				</div>
+				<div align="right" class="col table_col_right" style="width: 30% !important;border:none !important; padding-right:16px;font-size:bold;">
+					<span style="float:right">{{tax_service_charge * totalPrice / 100 | currency : 'Rp ' : 0}}</span>
+				</div>
+			</div>
+		</div>
+	</ion-item>
+
+	<ion-item style="padding:0;font-size:12px;background-color:white;font-weight:bold;">
+		<div class="item-content">
+			<div class="row">
+				<div align="left" class="col table_border_progress" style="width: 5% !important; border:none !important;">
+					&nbsp;
+				</div>
+				<div align="left" class="col table_col_left" style="width: 65% !important; border-left:none; border-right: 2px #bdbdbd solid;font-size:bold;margin-left:-1px;margin-right:-1px;">
+					Delivery Fee
+				</div>
+				<div align="right" class="col table_col_right" style="width: 30% !important;border:none !important; padding-right:16px;font-size:bold;">
+					<span style="float:right">{{delivery_fee | currency : 'Rp ' : 0}}</span>
+				</div>
+			</div>
+		</div>
+	</ion-item>
+</ion-list>
+
+<nav ng-show="serviceType==1">
+	<div class="col" style="font-size:11px;background-color:#3d3d3d;color:white;margin-top:15px;font-size:14px;text-align:center">
+			Pick Up Location:
+	</div>
+	<ion-radio ng-repeat="area in areaJson.outlet" ng-model="data.selected" ng-value="{{area.id}}">
+		{{area.name}}
+	</ion-radio>
+</nav>
+
+<nav ng-show="serviceType==2">
+	<div class="bar bar-dark padding" ng-hide="min_hit" ng-click="showAlert()" style="text-align:center">
+		<h1 class="title">Minimum Order {{min_transaction | currency : 'Rp ' : 0}}</h1>
+	</div>
+</nav>
+
+<div class="padding" style="font-size:11px;background-color:#3d3d3d;color:white;margin-top:25px;font-size:14px;text-align:center">
+	Select your time to continue:
+</div>
+
+<div class="button-bar padding" style="margin-top:10px" ng-show="min_hit" >
+		<button class="button button-assertive" style="color:#3d3d3d;border-color: #ddbc08;background-color:#ddbc08;font-size:12px;font-weight:bold;padding:0 20px 0 20px;" ng-click="toCheckout()">
+				Immediate Order (60mins)
+    </button>
+</div>
+<div class="button-bar padding" style="margin-top:0px;width:100%" ng-show="min_hit" >
+	<div class="item item-text-wrap" style="text-align:center;background-color:#3d3d3d;color:yellow;width:100%;border:0;font-size:12px;" ng-click="openModal(1)">
+		Future Order <span ng-if="data.datetimetype == 2">{{data.datetime | date : 'yyyy-MM-dd HH:mm:ss'}}</span>
+		<br/><span style="color:gray">Tap here to change delivery time</span>
+	</div>
+</div>
+
+
+
+
+
+<div style="height:50px;width:100%"></div>
+
+</ion-content>
+</ion-view>
